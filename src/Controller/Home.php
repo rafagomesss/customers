@@ -13,7 +13,7 @@ class Home extends Controller
     {
     }
 
-    public function main()
+    public function main(): void
     {
         parent::prepareView('home',[], true);
     }

@@ -8,10 +8,6 @@ use System\Request;
 
 class Controller
 {
-    public function __construct()
-    {
-    }
-
     private function delimeterRequest(): array
     {
         $request = new Request();
@@ -22,7 +18,7 @@ class Controller
         ];
     }
 
-    protected function prepareView(string $view, array $data = [], bool $menu = false)
+    protected function prepareView(string $view, array $data = [], bool $menu = false): void
     {
         $ds = DIRECTORY_SEPARATOR; 
         $this->loadView("include{$ds}header");
@@ -34,7 +30,7 @@ class Controller
         $this->loadView("include{$ds}footer", $data['request']);
     }
 
-    protected function loadView(string $view, $data = null)
+    protected function loadView(string $view, $data = null): void
     {
         if (is_array($data) && count($data)) {
             extract($data, EXTR_PREFIX_SAME, 'data');

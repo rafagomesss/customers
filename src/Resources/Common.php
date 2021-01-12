@@ -6,7 +6,7 @@ namespace Customer\Resources;
 
 class Common
 {
-    public static function convertDateToDataBase(string $date)
+    public static function convertDateToDataBase(string $date): string
     {
         $aux = explode('/', $date);
         $aux = $aux[2] . '-' . $aux[1] . '-' . $aux[0];
@@ -14,22 +14,15 @@ class Common
         return $dateTime->format('Y-m-d');
     }
     
-    public static function convertDateToView(string $date, string $format = 'd/m/Y')
+    public static function convertDateToView(string $date, string $format = 'd/m/Y'): string
     {
         $dateTime = new \DateTime($date, new \DateTimezone("America/Sao_Paulo"));
         return $dateTime->format($format);
     }
 
-    public static function listStates()
+    public static function listStates(): ?array
     {
         $return = RequestAPI::sendRequest('https://servicodados.ibge.gov.br/api/v1/localidades/estados');
-        return $return;
-    }
-
-    public static function listCities()
-    {
-        $uf = filter_input(INPUT_POST, 'uf', FILTER_SANITIZE_STRING);
-        $return = RequestAPI::sendRequest("https://servicodados.ibge.gov.br/api/v1/localidades/estados/{$uf}/municipios");
         return $return;
     }
 

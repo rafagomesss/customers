@@ -16,6 +16,30 @@ class Customer extends Controller
         parent::prepareView('customers/list', $data, true);
     }
 
+    private function verifyGenderValues(): void
+    {
+        $gender = filter_input(INPUT_POST, 'customerGender', FILTER_SANITIZE_STRING);
+        if (!in_array($gender, ['M', 'F'])) {
+            echo json_encode(
+                [
+                    'erro' => true,
+                    'message' => 'Apenas os valores "M" ou "F" são válidos para o campo "Gênero"!'
+                ]
+            );
+            exit();
+        }
+    }
+
+    private function verifyCPFExists(): void
+    {
+        $cpf = Common::returnOnlyNumbers(filter_input(INPUT_POST, 'customerCPF', FILTER_SANITIZE_STRING));
+        $result = (new ModelCustomer())->verifyCPFExists($cpf);
+        if ($result) {
+            echo json_encode($result);
+            exit();
+        }
+    }
+
     private function validateRequiredFields(): string
     {
         $requiredFields = [
@@ -32,16 +56,18 @@ class Customer extends Controller
         return '';
     }
 
-    public function newCustomer()
+    public function newCustomer(): void
     {
         $data['titleAndButton'] = !empty($data['customer'][0]['id']) ? 'Atualizar' : 'Cadastrar';
         $data['states'] = Common::listStates();
         parent::prepareView('customers/register', $data, true);
     }
     
-    public function registerCustomer()
+    public function registerCustomer(): void
     {
         $formData = filter_input_array(INPUT_POST);
+        $this->verifyGenderValues();
+        $this->verifyCPFExists();
         $campo = $this->validateRequiredFields();
         if (!empty($campo)) {
             $result = ['erro' => true, 'message' => "O campo {$campo} é Obrigatório!"];
@@ -51,22 +77,24 @@ class Customer extends Controller
         echo json_encode($result);
     }
     
-    public function deleteCustomer()
+    public function deleteCustomer(): void
     {
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         echo json_encode((new ModelCustomer())->deleteCustomer($id));
     }
     
-    public function editCustomer(int $id){
+    public function editCustomer(int $id): void
+    {
         $data['customer'] = (new ModelCustomer())->getCustomerById($id);
         $data['states'] = Common::listStates();
         $data['titleAndButton'] = empty($data['customer'][0]['id']) ? 'Atualizar' : 'Cadastrar';
         parent::prepareView('customers/register', $data, true);
     }
 
-    public function updateCustomer()
+    public function updateCustomer(): void
     {
         $formData = filter_input_array(INPUT_POST);
+        $this->verifyGenderValues();
         $campo = $this->validateRequiredFields();
         if (!empty($campo)) {
             $result = ['erro' => true, 'message' => "O campo \"{$campo}\" é Obrigatório!"];
@@ -74,10 +102,5 @@ class Customer extends Controller
             $result = (new ModelCustomer())->updateCustomer($formData);
         }
         echo json_encode($result);
-    }
-
-    public function getCities(): void
-    {
-        echo json_encode(Common::listCities());
     }
 }

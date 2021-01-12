@@ -55,7 +55,7 @@ class Model
 		}
     }
     
-    public function delete(int $id)
+    public function delete(int $id): array
 	{
 		try{
 			$sql = "DELETE FROM {$this->table} WHERE id = :id";
@@ -70,7 +70,7 @@ class Model
 		}
     }
     
-    public function insert(array $data = [])
+    public function insert(array $data = []): array
 	{
 		try{
 			$sql = "INSERT INTO {$this->table} (" . implode(',', array_keys($data)). ") VALUES (:" . implode(', :', array_keys($data)) . ")";

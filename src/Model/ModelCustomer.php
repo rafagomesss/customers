@@ -89,8 +89,27 @@ class ModelCustomer extends Model
         return $this->insert($data);
     }
 
-    public function deleteCustomer(int $id)
+    public function deleteCustomer(int $id): array
     {
         return $this->delete($id);
     }
+
+    public function verifyCPFExists(string $cpf): ?array
+	{
+		try{
+			$sql = "SELECT 1 FROM {$this->table} WHERE cpf = :cpf";
+			$stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':cpf', $cpf, \PDO::PARAM_STR);
+            if ($stmt->execute()) {
+                $result = $stmt->fetch();
+                return !empty($result) ? [
+                                            'erro' => true,
+                                            'message' => "Esse CPF já foi cadastrado!"
+                                        ] : null;
+            }
+            return ['erro' => true, 'message' => 'Erro ao verificar CPF na base!'];
+		} catch (\PDOException $e) {
+			return ['erro' => true, 'code' => $e->getCode(), 'message' => $e->getMessage()];
+		}
+	}
 }

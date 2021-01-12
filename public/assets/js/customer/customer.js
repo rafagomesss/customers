@@ -13,6 +13,7 @@ $(document).ready(() => {
 
     $('#customerBirthDate').mask('00/00/0000');
     $('.maskCPF').mask('000.000.000-00');
+    $('.maskCEP').mask('00000-000');
     $('#customerBirthDate').datepicker();
     $('#customerBirthDate').datepicker('option', {
         changeMonth: true,
