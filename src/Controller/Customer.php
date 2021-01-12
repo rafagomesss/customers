@@ -70,7 +70,7 @@ class Customer extends Controller
         $this->verifyCPFExists();
         $campo = $this->validateRequiredFields();
         if (!empty($campo)) {
-            $result = ['erro' => true, 'message' => "O campo {$campo} é Obrigatório!"];
+            $result = ['erro' => true, 'message' => "O campo \"{$campo}\" é Obrigatório!"];
         } else {
             $result = (new ModelCustomer())->registerCustomer($formData);
         }
