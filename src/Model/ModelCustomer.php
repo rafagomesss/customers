@@ -52,7 +52,7 @@ class ModelCustomer extends Model
         return $newArray;
     }
     
-    public function getCustomers():array
+    public function getCustomers(): array
     {
         $this->connection = Connection::getInstance();
         $stmt = $this->connection->query("SELECT * FROM {$this->table}");
