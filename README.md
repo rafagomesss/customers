@@ -4,16 +4,18 @@
 
 **C:\xampp\apache\conf\extra\httpd-vhosts.conf**
 <pre>
-    <VirtualHost *:80>
-        ServerName www.customers.com.br
-        ServerAlias intervin.com.br
-        DocumentRoot "C:/customers/public"
-        <Directory "C:/customers">
-            Options Indexes FollowSymLinks Includes ExecCGI
-            AllowOverride All
-            Require all granted 
-        </Directory>
-    </VirtualHost>
+    <code>
+        <VirtualHost *:80>
+            ServerName www.customers.com.br
+            ServerAlias intervin.com.br
+            DocumentRoot "C:/customers/public"
+            <Directory "C:/customers">
+                Options Indexes FollowSymLinks Includes ExecCGI
+                AllowOverride All
+                Require all granted 
+            </Directory>
+        </VirtualHost>
+    </code>
 </pre>
 
 ## Configuração Host Local
