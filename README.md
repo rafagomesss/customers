@@ -4,7 +4,7 @@
 
 **C:\xampp\apache\conf\extra\httpd-vhosts.conf**
 <pre>
-    <code>
+    ```
         <VirtualHost *:80>
             ServerName www.customers.com.br
             ServerAlias intervin.com.br
@@ -15,7 +15,7 @@
                 Require all granted 
             </Directory>
         </VirtualHost>
-    </code>
+    ```
 </pre>
 
 ## Configuração Host Local
