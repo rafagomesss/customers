@@ -138,7 +138,6 @@ $(document).ready(() => {
                         $("#customerNbh").val(dados.bairro);
                         $("#customerCity").val(dados.localidade);
                         $("#customerState").val(dados.uf);
-                        loadingCities();
                     } else {
                         clearFormCep();
                         Swal.fire({
@@ -168,6 +167,7 @@ $(document).ready(() => {
     $('#customerCPF').on('blur', (event) => {
         if (event.target.value.length && !validateCPF(event.target.value.match(/\d+/gi).join(''))) {
             event.target.value = '';
+            event.target.focus();
             Swal.fire({
                 position: 'center',
                 icon: 'warning',
