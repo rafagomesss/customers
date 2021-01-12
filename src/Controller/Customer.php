@@ -65,7 +65,7 @@ class Customer extends Controller
     
     public function registerCustomer(): void
     {
-        $formData = filter_input_array(INPUT_POST);
+        $formData = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $this->verifyGenderValues();
         $this->verifyCPFExists();
         $campo = $this->validateRequiredFields();
@@ -93,7 +93,7 @@ class Customer extends Controller
 
     public function updateCustomer(): void
     {
-        $formData = filter_input_array(INPUT_POST);
+        $formData = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $this->verifyGenderValues();
         $campo = $this->validateRequiredFields();
         if (!empty($campo)) {
