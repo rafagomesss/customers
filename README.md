@@ -3,7 +3,8 @@
 ## Configuração Virtual Host Xampp
 
 **C:\xampp\apache\conf\extra\httpd-vhosts.conf**
-**PHP Version 7.4.8**
+
+### PHP Version 7.4.8 ###
 ```
 <VirtualHost *:80>
     ServerName www.customers.com.br
