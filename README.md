@@ -8,7 +8,7 @@
 ```
 <VirtualHost *:80>
     ServerName www.customers.com.br
-    ServerAlias intervin.com.br
+    ServerAlias customers.com.br
     DocumentRoot "C:/customers/public"
     <Directory "C:/customers">
         Options Indexes FollowSymLinks Includes ExecCGI
